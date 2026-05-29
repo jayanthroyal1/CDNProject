@@ -149,3 +149,71 @@ src/
 ├── assets/
 │
 └── main.jsx
+
+# CI/CD Flow Desgin
+Feature Branch
+      │
+      ▼
+
+Pull Request
+      │
+      ▼
+
+Develop
+      │
+      ▼
+
+Release Branch
+      │
+      ▼
+
+Main
+      │
+      ▼
+
+GitHub Actions
+      │
+      ▼
+
+AWS Deployment
+
+# Final Structure
+portfolio-project/
+
+├── .github/
+│   └── workflows/
+│
+├── docs/
+│   ├── architecture/
+│   ├── deployment/
+│   ├── api/
+│   └── decisions/
+│
+├── infrastructure/
+│   ├── aws/
+│   ├── docker/
+│   ├── nginx/
+│   └── diagrams/
+│
+├── scripts/
+│   ├── setup-backend.sh
+│   ├── setup-frontend.sh
+│   ├── start-dev.sh
+│   ├── stop-dev.sh
+│   ├── build-images.sh
+│   ├── deploy-backend.sh
+│   ├── deploy-frontend.sh
+│   ├── invalidate-cloudfront.sh
+│   └── blue-green-switch.sh
+│
+├── portfolio-backend/
+│
+├── portfolio-frontend/
+│
+├── .gitignore
+│
+├── docker-compose.yml
+│
+├── README.md
+│
+└── architecture.md
