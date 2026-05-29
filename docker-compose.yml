@@ -1,0 +1,24 @@
+services:
+  mongodb:
+    image: mongo:8
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+  
+  redis:
+   image: redis:7
+   container_name: redis
+   ports:
+     - "6379:6379"
+  
+  backend:
+    build:
+      context: ./Backend
+    container_name: Backend
+    ports:
+      - "5000:5000"
+    env_file:
+     - Backend/.env
+    depends_on:
+      - mongodb
+      - redis
