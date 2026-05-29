@@ -1,3 +1,30 @@
+# CDN Portfolio Platform
+
+Production-style MERN application demonstrating:
+
+- React Frontend
+- Node Backend
+- MongoDB
+- Redis
+- Docker
+- AWS CloudFront
+- S3
+- EC2
+- ALB
+- Blue/Green Deployment
+- CloudWatch Monitoring
+
+## Architecture
+
+Frontend:
+CloudFront → S3
+
+Backend:
+ALB → EC2 → Docker
+
+Data:
+Redis + MongoDB
+
 portfolio-project
 │
 ├── portfolio-backend
