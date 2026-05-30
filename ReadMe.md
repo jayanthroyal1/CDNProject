@@ -244,3 +244,42 @@ portfolio-project/
 ├── README.md
 │
 └── architecture.md
+
+
+                    ┌──────────────────────┐
+                    │      User Browser     │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │   AWS CloudFront CDN │
+                    │  (Frontend Delivery) │
+                    └──────────┬───────────┘
+                               │
+                    Cached Static Assets
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │        S3 Bucket      │
+                    │   portfolio-frontend  │
+                    └──────────────────────┘
+
+
+API Requests
+──────────────────────────────────────────────►
+
+                    ┌──────────────────────┐
+                    │        EC2           │
+                    │  portfolio-backend   │
+                    │  Docker Container    │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │       MongoDB        │
+                    └──────────────────────┘
+
+                    ┌──────────────────────┐
+                    │          S3          │
+                    │ Profile Images/Files │
+                    └──────────────────────┘
