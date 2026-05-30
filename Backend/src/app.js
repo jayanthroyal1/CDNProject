@@ -12,6 +12,7 @@ import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import adminRoute from "./routes/admin.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
+import contactRoutes from "./routes/contact.routes.js";
 
 const app = express();
 
