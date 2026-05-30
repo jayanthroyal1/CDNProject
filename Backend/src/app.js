@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
+import path from "path";
 
 import healthRoutes from "./routes/health.routes.js";
 import { requestIdMiddleware } from "./middleware/request-id.middleware.js";
@@ -13,6 +14,8 @@ import userRoutes from "./routes/user.routes.js";
 import adminRoute from "./routes/admin.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
 import contactRoutes from "./routes/contact.routes.js";
+import fileRoutes from "./routes/file.routes.js";
+import reportRoutes from "./routes/admin.routes.js";
 
 const app = express();
 
@@ -33,12 +36,15 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(requestIdMiddleware);
 app.use(apiLimiter);
+app.use("/uploads", express.static(path.resolve("uploads")));
 
 app.use("/api/v1/health", healthRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/profile", profileRoutes);
+app.use("/api/v1/files", fileRoutes);
+app.use("/api/v1/reports", reportRoutes);
 
 app.use(errorHandler);
 
