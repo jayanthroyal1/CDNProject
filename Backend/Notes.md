@@ -74,3 +74,105 @@ ratelimit - api limits
 Auth APIs → 5 requests
 Public APIs → 100 requests
 Admin APIs → Different rules
+
+Authentication & Authorization Architecture
+User Login
+    │
+    ▼
+Password Validation
+    │
+    ▼
+MongoDB User
+    │
+    ▼
+Access Token (15 min)
+    │
+    ▼
+Refresh Token (7 days)
+    │
+    ▼
+Redis Session
+
+For AccessToken - JWT
+Store Refresh token in HttpOnly Cookies
+Here we avoiding storing JWT in localstorage for XSS Risk - since production application uses HttpOnly Cookies
+
+# Register Flow
+Request
+  ↓
+Validate
+  ↓
+Email Exists?
+  ↓
+Hash Password
+  ↓
+Create User
+  ↓
+Return User
+
+# Login Flow
+Request
+  ↓
+Find User
+  ↓
+Compare Password
+  ↓
+Generate Tokens
+  ↓
+Store Session Redis
+  ↓
+Return Access Token
+
+# redis
+session:userId
+
+# Flow
+Request-->Middleware -->Route--->Controller-->Service-->Repository-->Database-->Response
+
+Middleware has
+Authentication
+Authorization
+Rate Limiting
+Request Validation
+Logging
+CORS
+Helmet
+
+Middleware VS Service
+
+| Middleware         | Service         |
+| ------------------ | --------------- |
+| Authentication     | Register User   |
+| Authorization      | Create Order    |
+| Rate Limiting      | Process Payment |
+| Request Validation | Apply Coupon    |
+| Logging            | Calculate Tax   |
+| CORS               | Business Rules  |
+
+example Login flow
+Request
+  ↓
+Validation Middleware
+  ↓
+Controller
+  ↓
+Auth Service
+  ↓
+User Repository
+  ↓
+MongoDB
+
+Protected API FLow
+Request
+  ↓
+Authentication Middleware
+  ↓
+Authorization Middleware
+  ↓
+Validation Middleware
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Repository

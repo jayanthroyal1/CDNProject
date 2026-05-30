@@ -8,6 +8,7 @@ import healthRoutes from "./routes/health.routes.js";
 import { requestIdMiddleware } from "./middleware/request-id.middleware.js";
 import { apiLimiter } from "./middleware/rate-limit.middleware.js";
 import { errorHandler } from "./middleware/error.middleware.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(requestIdMiddleware);
 app.use(apiLimiter);
 
 app.use("/api/v1/health", healthRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 app.use(errorHandler);
 
