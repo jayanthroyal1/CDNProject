@@ -10,4 +10,6 @@ export const env = {
   redisPort: process.env.REDIS_PORT,
   jwtSecret: process.env.JWT_SECRET,
   jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
+  accessTokenExpiry: process.env.ACCESS_TOKEN_EXPIRY,
+  refreshTokenExpiry: process.env.REFRESH_TOKEN_EXPIRY,
 };

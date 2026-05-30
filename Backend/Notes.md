@@ -176,3 +176,19 @@ Controller
 Service
   ↓
 Repository
+
+# Refresh Arch
+Login
+  │
+Access Token
+(15 mins)
+
+Refresh Token
+(7 days)
+
+  │
+Redis Session
+  │
+Refresh API
+  │
+New Access Token

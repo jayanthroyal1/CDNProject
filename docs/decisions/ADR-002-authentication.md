@@ -1,16 +1,21 @@
-# ADR-005 Authentication
+# Authentication Session Strategy
 
 Decision:
 
-JWT Access Tokens
+JWT Access Token
 +
-Refresh Tokens
+Refresh Token
 +
-Redis Sessions
+Redis Session
 
 Reason:
 
-Stateless authentication
-Industry standard
-Supports scaling
-Supports CloudFront + API separation
+Scalable
+Stateless
+Supports CloudFront
+Supports Horizontal Scaling
+
+Alternatives Rejected:
+
+Database Sessions
+LocalStorage Tokens

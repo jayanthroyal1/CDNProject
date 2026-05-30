@@ -2,12 +2,15 @@ import jwt from "jsonwebtoken";
 import { env } from "../config/env.js";
 
 export const generateAccessToken = (payload) => {
-  console.log("Near Generate Token", payload);
-  return jwt.sign(payload, env.jwtSecret, { expiresIn: "15m" });
+  return jwt.sign(payload, env.jwtSecret, {
+    expiresIn: env.accessTokenExpiry,
+  });
 };
 
 export const generateRefreshToken = (payload) => {
-  return jwt.sign(payload, env.jwtRefreshSecret, { expiresIn: "7d" });
+  return jwt.sign(payload, env.jwtRefreshSecret, {
+    expiresIn: env.refreshTokenExpiry,
+  });
 };
 
 export const verifyAccessToken = (token) => {

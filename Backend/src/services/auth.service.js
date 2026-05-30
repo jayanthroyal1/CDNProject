@@ -4,7 +4,12 @@ import {
   findUserByEmail,
 } from "../repositories/user.repository.js";
 import AppError from "../utils/app-error.js";
-import { generateAccessToken } from "../utils/jwtToken.js";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyRefreshToken,
+} from "../utils/jwtToken.js";
+import { createSession, deleteSession, getSession } from "./session.service.js";
 
 export const registerUserService = async (payload) => {
   const exisitingUser = await findUserByEmail(payload.email);
@@ -43,15 +48,24 @@ export const loginUserService = async (payload) => {
     throw new AppError("Invalid Password", 401);
   }
 
-  const accessToken = generateAccessToken({
+  const payload = {
     userId: checkUser._id,
     role: checkUser.role,
-  });
+  };
 
-  console.log("Access Token", accessToken);
+  const accessToken = generateAccessToken(payload);
+
+  const refreshToken = generateRefreshToken(payload);
+
+  await createSession(user._id.toString(), {
+    userId: user._id.toString(),
+    email: user.email,
+    role: user.role,
+  });
 
   return {
     accessToken,
+    refreshToken,
     user: {
       id: checkUser._id,
       name: checkUser.name,
@@ -59,4 +73,23 @@ export const loginUserService = async (payload) => {
       role: checkUser.role,
     },
   };
+};
+
+export const refreshUserTokenService = async (refreshToken) => {
+  const decoded = verifyRefreshToken(refreshToken);
+  const session = await getSession(decoded.userId);
+
+  if (!session) {
+    throw new AppError("Session Expired", 401);
+  }
+
+  return generateAccessToken({
+    userId: decoded.userId,
+    role: decoded.role,
+  });
+};
+
+export const logoutUserService = async (userId) => {
+  await deleteSession(userId);
+  return true;
 };
