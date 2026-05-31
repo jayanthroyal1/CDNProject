@@ -192,3 +192,31 @@ Redis Session
 Refresh API
   │
 New Access Token
+
+# Portfolio Backend
+
+## Setup
+
+npm install
+
+## Environment
+
+cp .env.example .env
+
+## Start
+
+npm run dev
+
+## Seed
+
+npm run seed:admin
+
+npm run seed:profile
+
+## Swagger
+
+/api-docs
+
+## Docker
+
+docker compose up --build
