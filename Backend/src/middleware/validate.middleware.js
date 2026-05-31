@@ -6,7 +6,7 @@ export const validate = (schema) => {
       req.body = await schema.parseAsync(req.body);
       next();
     } catch (err) {
-      next(new AppError(err.error?.[0]?.message || "Validation Error", 400));
+      next(new AppError(err.issues?.[0]?.message || "Validation Error", 400));
     }
   };
 };

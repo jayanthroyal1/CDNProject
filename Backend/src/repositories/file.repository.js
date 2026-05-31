@@ -12,11 +12,21 @@ export const getFileById = async (id) => File.findById(id);
 export const updateFileMetadata = async (id, metadata) => {
   return File.findByIdAndUpdate(id, { metadata }, { new: true });
 };
-export const getFilesPaginated = async (page, limit, type) => {
+
+export const deleteFileById = async (id) => {
+  return File.findByIdAndDelete(id);
+};
+
+export const getFilesPaginated = async (page, limit, type, user) => {
   const query = {};
 
   if (type) {
     query.fileType = type;
+  }
+
+  // Admin users see all files. Regular users only see their own files.
+  if (user && user.role !== "admin") {
+    query.uploadedBy = user.userId;
   }
 
   const total = await File.countDocuments(query);

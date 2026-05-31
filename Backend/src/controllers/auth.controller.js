@@ -7,15 +7,16 @@ import {
 } from "../services/auth.service.js";
 import { successResponse } from "../utils/api-response.js";
 import { asyncHandler } from "../utils/async-handler.js";
+import AppError from "../utils/app-error.js";
 
 export const register = asyncHandler(async (req, res) => {
   const result = await registerUserService(req.body);
-  return successResponse(res, result, "User Registred", 201);
+  return successResponse(res, result, "User Registered", 201);
 });
 
 export const login = asyncHandler(async (req, res) => {
   const result = await loginUserService(req.body);
-  res.cookie("refreshToken", {
+  res.cookie("refreshToken", result.refreshToken, {
     httpOnly: true,
     secure: env.nodeEnv === "production",
     sameSite: "strict",
@@ -26,7 +27,7 @@ export const login = asyncHandler(async (req, res) => {
 });
 
 export const refreshToken = asyncHandler(async (req, res) => {
-  const token = req.cookie.refreshToken;
+  const token = req.cookies.refreshToken;
 
   if (!token) {
     throw new AppError("Refresh token missing", 401);

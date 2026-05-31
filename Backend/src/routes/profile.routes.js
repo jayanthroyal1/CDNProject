@@ -15,7 +15,6 @@ router.get("/", getProfileController);
 router.put(
   "/",
   authenticate,
-  authorize("admin"),
   validate(profileSchema),
   updateProfileController,
 );
