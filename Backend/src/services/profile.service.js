@@ -36,4 +36,5 @@ export const saveProfile = async (payload) => {
   }
 
   await redisClient.del(CACHE_KEYS.PROFILE);
+  return profile;
 };

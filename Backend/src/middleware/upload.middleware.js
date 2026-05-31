@@ -2,20 +2,24 @@ import multer from "multer";
 import path from "path";
 import { ALLOWED_MIME_TYPES } from "../constants/file.constants.js";
 
+import fs from "fs";
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    let dir = "uploads/reports";
     if (file.mimetype.startsWith("image")) {
-      return cb(null, "uploads/images");
-    }
-    if (file.mimetype === "application/pdf") {
-      return cb(null, "uploads/pdfs");
-    }
-
-    if (file.mimetype.startsWith("video")) {
-      return cb(null, "uploads/videos");
+      dir = "uploads/images";
+    } else if (file.mimetype === "application/pdf") {
+      dir = "uploads/pdfs";
+    } else if (file.mimetype.startsWith("video")) {
+      dir = "uploads/videos";
     }
 
-    return cb(null, "uploads/reports");
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    return cb(null, dir);
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
