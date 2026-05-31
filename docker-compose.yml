@@ -25,9 +25,21 @@ services:
       - "5000:5000"
     env_file:
      - Backend/.env
+    volumes:
+      - ./Backend/uploads:/app/uploads
     depends_on:
       - mongodb
       - redis
+
+  frontend:
+    build:
+      context: ./Frontend
+    container_name: Frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
 
 volumes:
   mongodb_data:

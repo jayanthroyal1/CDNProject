@@ -10,6 +10,7 @@ import {
   uploadFileController,
   getFilesController,
   getFileController,
+  deleteFileController,
 } from "../controllers/file.controller.js";
 
 const router = Router();
@@ -17,13 +18,14 @@ const router = Router();
 router.post(
   "/upload",
   authenticate,
-  authorize("admin"),
   upload.single("file"),
   uploadFileController,
 );
 
-router.get("/", getFilesController);
+router.get("/", authenticate, getFilesController);
 
-router.get("/:id", getFileController);
+router.get("/:id", authenticate, getFileController);
+
+router.delete("/:id", authenticate, deleteFileController);
 
 export default router;

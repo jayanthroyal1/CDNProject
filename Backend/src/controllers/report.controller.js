@@ -1,7 +1,8 @@
 import { fetchFileService } from "../services/file.service.js";
 import redisClient from "../config/redis.js";
+import { asyncHandler } from "../utils/async-handler.js";
 
-export const getChartData = async (req, res) => {
+export const getChartData = asyncHandler(async (req, res) => {
   const cacheKey = `report:${req.params.id}`;
 
   const cached = await redisClient.get(cacheKey);
@@ -12,13 +13,19 @@ export const getChartData = async (req, res) => {
 
   const report = await fetchFileService(req.params.id);
 
-  const rows = report.metadata.rows;
+  if (!report || !report.metadata || !report.metadata.rows || report.metadata.rows.length === 0) {
+    return res.status(404).json({ success: false, message: "No chart data available for this file." });
+  }
 
-  const keys = Object.keys(rows[0]);
+  const rows = report.metadata.rows;
+  const keys = Object.keys(rows[0] || {});
+
+  if (keys.length < 2) {
+    return res.status(400).json({ success: false, message: "CSV/Excel must have at least 2 columns to generate a chart." });
+  }
 
   const labels = rows.map((item) => item[keys[0]]);
-
-  const values = rows.map((item) => Number(item[keys[1]]));
+  const values = rows.map((item) => Number(item[keys[1]]) || 0);
 
   const response = {
     success: true,
@@ -40,4 +47,4 @@ export const getChartData = async (req, res) => {
   );
 
   return res.json(response);
-};
+});

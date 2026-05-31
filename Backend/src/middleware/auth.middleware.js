@@ -17,7 +17,7 @@ export const authenticate = async (req, res, next) => {
       return next(new AppError("User Disabled", 401));
     }
     req.user = {
-      userId: user.userId,
+      userId: user._id,
       role: user.role,
       email: user.email,
     };

@@ -1,0 +1,56 @@
+/* src/app/styles/theme.css */
+:root {
+  --color-bg: hsl(210, 30%, 10%);
+  --color-surface: hsla(210, 30%, 12%, 0.8);
+  --color-primary: hsl(200, 70%, 55%);
+  --color-primary-dark: hsl(200, 70%, 45%);
+  --color-text: hsl(0, 0%, 95%);
+  --color-muted: hsl(210, 15%, 30%);
+  --font-family: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  color: var(--color-text);
+}
+
+body {
+  background: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.glass {
+  background: var(--color-surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+
+.button {
+  background: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.button:hover {
+  background: var(--color-primary-dark);
+}

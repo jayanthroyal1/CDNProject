@@ -25,13 +25,13 @@ export const getFilesController = asyncHandler(async (req, res) => {
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 10;
   const type = req.query.type;
-  const result = await fetchFilesService(page, limit, type);
+  // Pass the user info so we can scope files
+  const result = await fetchFilesService(page, limit, type, req.user);
 
   return successResponse(
     res,
     {
       files: result.files,
-
       pagination: {
         page,
         limit,
@@ -40,4 +40,9 @@ export const getFilesController = asyncHandler(async (req, res) => {
     },
     "Files fetched",
   );
+});
+
+export const deleteFileController = asyncHandler(async (req, res) => {
+  await import("../services/file.service.js").then((service) => service.deleteFileService(req.params.id, req.user));
+  return successResponse(res, null, "File deleted successfully");
 });
