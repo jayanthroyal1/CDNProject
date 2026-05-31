@@ -1,0 +1,32 @@
+services:
+  backend:
+   build:
+     context: ../../Backend
+     dockerfile: Dockerfile
+   container_name: cdn-backend
+   restart: unless-stopped
+
+   env_file:
+      - /home/ubuntu/secrets/backend.env
+   ports:
+     - "5000:5000"
+   depends_on:
+     - redis
+   networks:
+      - cdn-networks
+
+  redis:
+        image: redis:7-alpine
+        container_name: cdn-redis
+        restart: unless-stopped
+        command: redis-server --appendonly yes
+        volumes:
+          - cdn-redis-data:/data
+        networks:
+          - cdn-networks
+volumes:
+  cdn-redis-data:
+networks:
+  cdn-network:  
+
+  
