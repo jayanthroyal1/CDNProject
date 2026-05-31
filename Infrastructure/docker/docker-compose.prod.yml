@@ -13,7 +13,7 @@ services:
    depends_on:
      - redis
    networks:
-      - cdn-networks
+      - cdn-network
 
   redis:
         image: redis:7-alpine
@@ -23,7 +23,7 @@ services:
         volumes:
           - cdn-redis-data:/data
         networks:
-          - cdn-networks
+          - cdn-network
 volumes:
   cdn-redis-data:
 networks:
