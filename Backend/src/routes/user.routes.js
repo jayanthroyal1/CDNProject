@@ -5,3 +5,5 @@ import { getMe } from "../controllers/user.controller.js";
 const router = express.Router();
 
 router.get("/me", authenticate, getMe);
+
+export default router;
