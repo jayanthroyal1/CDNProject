@@ -7,7 +7,7 @@ import { authorize } from "../middleware/role.middleware.js";
 import { upload } from "../middleware/upload.middleware.js";
 
 import {
-  uploadFile,
+  uploadFileController,
   getFilesController,
   getFileController,
 } from "../controllers/file.controller.js";
@@ -19,7 +19,7 @@ router.post(
   authenticate,
   authorize("admin"),
   upload.single("file"),
-  uploadFile,
+  uploadFileController,
 );
 
 router.get("/", getFilesController);

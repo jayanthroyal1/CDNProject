@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "seed:admin": "node src/seeds/seed-admin.js",
+    "seed:profile": "node src/seeds/seed-profile.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "csv-parser": "^3.2.1",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^8.5.2",
     "helmet": "^8.2.0",
     "jsonwebtoken": "^9.0.3",
@@ -30,9 +33,11 @@
     "pdf-parser": "^1.0.5",
     "redis": "^6.0.0",
     "sharp": "^0.34.5",
+    "swagger-ui-express": "^5.0.1",
     "uuid": "^14.0.0",
     "winston": "^3.19.0",
     "xlsx": "^0.18.5",
+    "yamljs": "^0.3.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {

@@ -1,4 +1,3 @@
-import { ca } from "zod/v4/locales";
 import redisClient from "../config/redis.js";
 import { CACHE_KEYS } from "../constants/cache.constants.js";
 import {
@@ -22,7 +21,7 @@ export const getProfileService = async () => {
   }
 
   await redisClient.set(CACHE_KEYS.PROFILE, JSON.stringify(profile), {
-    expiration: 300,
+    EX: 300,
   });
   return profile;
 };

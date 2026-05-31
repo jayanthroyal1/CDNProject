@@ -1,4 +1,4 @@
-import sharp, { format } from "sharp";
+import sharp from "sharp";
 
 export const processImage = async (filePath) => {
   const metadata = await sharp(filePath).metadata();

@@ -2,6 +2,7 @@ import {
   createFile,
   getFileById,
   getFiles,
+  getFilesPaginated,
   updateFileMetadata,
 } from "../repositories/file.repository.js";
 
@@ -38,6 +39,10 @@ export const saveFileService = async (file, userId) => {
   return updatedFile;
 };
 
-export const fetchFilesService = getFiles;
+// export const fetchFilesService = getFiles;
 
 export const fetchFileService = getFileById;
+
+export const fetchFilesService = async (page, limit, type) => {
+  return getFilesPaginated(page, limit, type);
+};

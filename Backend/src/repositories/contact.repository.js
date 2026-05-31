@@ -23,3 +23,19 @@ export const updateContactStatus = async (id, status) => {
     },
   );
 };
+
+export const getContactsPaginated = async (page, limit) => {
+  const total = await Contact.countDocuments();
+
+  const contacts = await Contact.find()
+    .skip((page - 1) * limit)
+    .limit(limit)
+    .sort({
+      createdAt: -1,
+    });
+
+  return {
+    contacts,
+    total,
+  };
+};

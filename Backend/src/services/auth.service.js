@@ -48,19 +48,19 @@ export const loginUserService = async (payload) => {
     throw new AppError("Invalid Password", 401);
   }
 
-  const payload = {
+  const newPayload = {
     userId: checkUser._id,
     role: checkUser.role,
   };
 
-  const accessToken = generateAccessToken(payload);
+  const accessToken = generateAccessToken(newPayload);
 
-  const refreshToken = generateRefreshToken(payload);
+  const refreshToken = generateRefreshToken(newPayload);
 
-  await createSession(user._id.toString(), {
-    userId: user._id.toString(),
-    email: user.email,
-    role: user.role,
+  await createSession(checkUser._id.toString(), {
+    userId: checkUser._id.toString(),
+    email: checkUser.email,
+    role: checkUser.role,
   });
 
   return {
