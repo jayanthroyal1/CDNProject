@@ -27,18 +27,20 @@ const app = express();
 
 app.use(
   cors({
-    origin: true, // Dynamically allow any origin that makes the request
+    origin: ["http://localhost:5173", "https://jaynirvan.online"],
     credentials: true,
     optionsSuccessStatus: 200, // Return 200 instead of 204 for OPTIONS
   }),
 );
 
-app.use(helmet({
-  crossOriginResourcePolicy: false,
-  crossOriginEmbedderPolicy: false,
-  xFrameOptions: false,
-  contentSecurityPolicy: false,
-}));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+    // crossOriginEmbedderPolicy: false,
+    // xFrameOptions: false,
+    // contentSecurityPolicy: false,
+  }),
+);
 
 app.use(compression());
 

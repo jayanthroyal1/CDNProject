@@ -1,9 +1,16 @@
 node_modules
 
-npm-debug.log
-
-.env
-
 .git
 
+.gitignore
+
+.env
+.env.*
+
+uploads
+
 logs
+
+coverage
+
+README.md

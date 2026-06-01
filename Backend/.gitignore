@@ -1,2 +1,38 @@
-node_modules
+# dependencies
+node_modules/
+
+# env
 .env
+.env.*
+
+# logs
+logs/
+*.log
+
+# build
+dist/
+build/
+
+# coverage
+coverage/
+
+# mac
+.DS_Store
+
+# windows
+Thumbs.db
+
+# vscode
+.vscode/
+
+# docker
+docker-data/
+
+# terraform
+.terraform/
+
+# aws
+.aws/
+
+# misc
+*.tmp
